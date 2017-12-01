@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.douglasmotta.githubdagger2.data.network.response.RepositoryResponse;
+import butterknife.ButterKnife;
 
 public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder> {
 
@@ -40,6 +41,7 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Re
 
         public RepositoryViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             text = itemView.findViewById(android.R.id.text1);
         }
 
