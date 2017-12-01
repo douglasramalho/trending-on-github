@@ -13,6 +13,7 @@ import br.com.douglasmotta.githubdagger2.R;
 import br.com.douglasmotta.githubdagger2.data.network.response.RepositoryResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 
 public class RepositoryActivity extends AppCompatActivity implements RepositoryContract.View {
 
@@ -27,9 +28,8 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repository);
         ButterKnife.bind(this);
-        //GithubApplication.getComponent().inject(this);
 
-        //presenter = new RepositoryPresenter(this, new ApiRepository(ApiService.getApiService()));
+        AndroidInjection.inject(this);
 
         presenter.getGitHubRepositories("Java", "star", 1);
     }
