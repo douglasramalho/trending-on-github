@@ -19,7 +19,7 @@ public class ApiService {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl("BASE_URL")
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(MoshiConverterFactory.create())
                     .build();
 
