@@ -2,7 +2,7 @@ package br.com.douglasmotta.githubdagger2.data.network.response;
 
 import com.squareup.moshi.Json;
 
-class OwnerReponse {
+public class OwnerReponse {
 
     @Json(name = "avatar_url")
     private final String avatarUrl;

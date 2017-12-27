@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.douglasmotta.githubdagger2.R;
-import br.com.douglasmotta.githubdagger2.data.network.response.RepositoryResponse;
+import br.com.douglasmotta.githubdagger2.data.model.Repository;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
@@ -35,7 +35,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
     }
 
     @Override
-    public void displayRepositories(List<RepositoryResponse> repositories) {
+    public void displayRepositories(List<Repository> repositories) {
         RepositoryAdapter adapter = new RepositoryAdapter(repositories);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);

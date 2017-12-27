@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp">
+
+    <ImageView
+        android:id="@+id/repository_image_view_repository_image"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/repository_text_view_repository_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/repository_image_view_repository_image"
+        app:layout_constraintTop_toTopOf="@+id/repository_image_view_repository_image"
+        tools:text="Repository Name" />
+
+    <TextView
+        android:id="@+id/repository_text_view_repository_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/repository_text_view_repository_name"
+        app:layout_constraintStart_toStartOf="@+id/repository_text_view_repository_name"
+        app:layout_constraintTop_toBottomOf="@+id/repository_text_view_repository_name"
+        tools:text="Repository Description" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/repository_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="repository_text_view_repository_name,repository_text_view_repository_description,repository_item_divider" />
+
+    <ImageView
+        android:id="@+id/repository_image_view_star_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_repository_fork"
+        app:layout_constraintStart_toStartOf="@+id/repository_text_view_repository_description"
+        app:layout_constraintTop_toBottomOf="@+id/repository_text_view_repository_description" />
+
+    <TextView
+        android:id="@+id/repository_text_view_star_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/repository_image_view_star_count"
+        app:layout_constraintTop_toTopOf="@+id/repository_image_view_star_count"
+        tools:text="89" />
+
+    <ImageView
+        android:id="@+id/repository_image_view_fork_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_repository_star"
+        app:layout_constraintStart_toEndOf="@+id/repository_text_view_star_count"
+        app:layout_constraintTop_toTopOf="@+id/repository_image_view_star_count" />
+
+    <TextView
+        android:id="@+id/repository_text_view_fork_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/repository_image_view_fork_count"
+        app:layout_constraintTop_toTopOf="@+id/repository_image_view_star_count"
+        tools:text="200" />
+
+    <View
+        android:id="@+id/repository_item_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#EFEFEF"
+        app:layout_constraintStart_toStartOf="@+id/repository_text_view_repository_name"
+        app:layout_constraintTop_toBottomOf="@+id/repository_text_view_fork_count" />
+
+
+</android.support.constraint.ConstraintLayout>
