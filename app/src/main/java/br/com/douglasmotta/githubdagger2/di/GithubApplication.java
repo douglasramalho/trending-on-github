@@ -1,6 +1,5 @@
 package br.com.douglasmotta.githubdagger2.di;
 
-import br.com.douglasmotta.githubdagger2.DaggerGithubComponent;
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
 
