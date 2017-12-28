@@ -1,6 +1,9 @@
 package br.com.douglasmotta.githubdagger2.data.model;
 
-public class Repository {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Repository implements Parcelable {
 
     private String name;
     private String description;
@@ -55,4 +58,38 @@ public class Repository {
     public void setForksCount(int forksCount) {
         this.forksCount = forksCount;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.description);
+        dest.writeParcelable(this.owner, flags);
+        dest.writeInt(this.starsCount);
+        dest.writeInt(this.forksCount);
+    }
+
+    protected Repository(Parcel in) {
+        this.name = in.readString();
+        this.description = in.readString();
+        this.owner = in.readParcelable(Owner.class.getClassLoader());
+        this.starsCount = in.readInt();
+        this.forksCount = in.readInt();
+    }
+
+    public static final Creator<Repository> CREATOR = new Creator<Repository>() {
+        @Override
+        public Repository createFromParcel(Parcel source) {
+            return new Repository(source);
+        }
+
+        @Override
+        public Repository[] newArray(int size) {
+            return new Repository[size];
+        }
+    };
 }
