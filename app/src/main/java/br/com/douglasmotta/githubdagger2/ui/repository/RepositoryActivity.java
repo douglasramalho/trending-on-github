@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,33 +24,40 @@ public class RepositoryActivity extends BaseAcitivty implements RepositoryContra
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private List<Repository> repositoryList = new ArrayList<>();
+    private RepositoryAdapter repositoryAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repository);
         ButterKnife.bind(this);
 
-        presenter.getGitHubRepositories("Java", "star", 1);
+        repositoryAdapter = new RepositoryAdapter(repositoryList, recyclerView, this, this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(repositoryAdapter);
+
+        getGitHubRepositorires();
     }
 
     @Override
     public void displayRepositories(List<Repository> repositories) {
-        RepositoryAdapter adapter = new RepositoryAdapter(repositories, recyclerView, this, this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        this.repositoryList.addAll(repositories);
+        this.repositoryAdapter.notifyItemRangeChanged(repositories.size()-1, repositories.size());
+        this.repositoryAdapter.setLoadingFalse();
+    }
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
+    @Override
+    public void showLoadingMoreCards() {
+        repositoryList.add(null);
+        repositoryAdapter.notifyItemInserted(repositoryList.size() -1);
+    }
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+    @Override
+    public void hideLoadingMoreCards() {
+        repositoryList.remove(repositoryList.size() -1);
+        repositoryAdapter.notifyItemRemoved(repositoryList.size());
     }
 
     @Override
@@ -59,6 +67,10 @@ public class RepositoryActivity extends BaseAcitivty implements RepositoryContra
 
     @Override
     public void onLoadMoreRepositories() {
+        getGitHubRepositorires();
+    }
 
+    private void getGitHubRepositorires() {
+        presenter.getGitHubRepositories("Java", "star", 1);
     }
 }

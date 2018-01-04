@@ -18,7 +18,7 @@ import br.com.douglasmotta.githubdagger2.data.model.Repository;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder> {
+public class RepositoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_ITEM = 0;
     private static final int VIEW_TYPE_LOADING = 1;
@@ -54,21 +54,24 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Re
     }
 
     @Override
-    public RepositoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RepositoryViewHolder holder = null;
-
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            holder = new RepositoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repository, parent, false));
-        } else if (viewType == VIEW_TYPE_LOADING) {
-            holder = new RepositoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repository_loading, parent, false));
+            return new RepositoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repository, parent, false));
         }
 
-        return holder;
+        if (viewType == VIEW_TYPE_LOADING) {
+            return new LoadingViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repository_loading, parent, false));
+        }
+
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(RepositoryViewHolder holder, int position) {
-        holder.bindItemsToAdapter(repositoryList.get(position));
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof RepositoryViewHolder) {
+            final RepositoryViewHolder repositoryViewHolder = (RepositoryViewHolder) holder;
+            repositoryViewHolder.bindItemsToAdapter(repositoryList.get(position));
+        }
     }
 
     @Override
@@ -128,6 +131,13 @@ public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.Re
 
             repositoryForkCount.setText(String.valueOf(repository.getForksCount()));
             repositoryStarCount.setText(String.valueOf(repository.getStarsCount()));
+        }
+    }
+
+    class LoadingViewHolder extends RecyclerView.ViewHolder {
+
+        public LoadingViewHolder(View itemView) {
+            super(itemView);
         }
     }
 

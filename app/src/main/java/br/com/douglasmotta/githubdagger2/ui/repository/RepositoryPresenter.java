@@ -22,9 +22,11 @@ public class RepositoryPresenter implements RepositoryContract.Presenter {
 
     @Override
     public void getGitHubRepositories(String language, String order, int page) {
+        view.showLoadingMoreCards();
         apiRepository.getRepositories(language, order, page, new ApiDataSource.GetRepositoriesCallback() {
             @Override
             public void onSuccess(RepositoryListResponse repositoryListResponse) {
+                view.hideLoadingMoreCards();
 
                 List<Repository> repositoryList = new ArrayList<>();
                 for (RepositoryResponse repositoryResponse : repositoryListResponse.getRepositories()) {

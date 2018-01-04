@@ -8,6 +8,10 @@ public interface RepositoryContract {
     interface View {
 
         void displayRepositories(List<Repository> repositories);
+
+        void showLoadingMoreCards();
+
+        void hideLoadingMoreCards();
     }
 
     interface Presenter {
